@@ -1,6 +1,8 @@
 ﻿using Core.Entities.Concrete;
 using Core.Entities.Concrete.DBEntities;
 using Core.Utilities.Results;
+using Entities.Concrete.Simples;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,11 +11,14 @@ namespace Business.Abstract
 {
     public interface IUserService
     {
-        List<OperationClaim> GetClaims(User user);
-        IDataResult<User> GetById(string userId);
+        IDataResult<List<OperationClaim>> GetClaims(User user);
+        IDataResult<List<UserDetailsDto>> GetAll();
+        IDataResult<UserDto> GetDetailsById(string id);
+        IResult Add(User user);
         IResult Delete(User user);
-        IDataResult<List<User>> GetAll();
-        IDataResult<User>GetByMail(string email);
-        IResult UserAdd(User user);
+        IDataResult<UserEvolved> GetById(string id);
+        IDataResult<User> GetByMail(string email);
+        IDataResult<UserDto> Update(UserDto user);
+        IDataResult<UserClaimDto> GetClaimAndUserDetails(string mail);
     }
 }

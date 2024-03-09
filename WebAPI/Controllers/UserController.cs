@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Castle.Core.Resource;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,9 @@ namespace WebAPI.Controllers
         {
             _userService = userService;
         }
+
+       
+
         [HttpGet("Getall")]
         public IActionResult GetAll()
         {
