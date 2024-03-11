@@ -1,11 +1,8 @@
-﻿using Core.Entities.Concrete;
-using Core.Entities.Concrete.DBEntities;
+﻿using Core.Entities.Concrete.DBEntities;
 using Core.Utilities.Results;
 using Entities.Concrete.Simples;
 using Entities.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Abstract
 {

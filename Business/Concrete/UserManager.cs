@@ -9,15 +9,6 @@ using Entities.Concrete.Simples;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
-<<<<<<< Updated upstream
-using System.Text;
-
-using DataAccess.Abstract;
-using Core.Entities.Concrete.DBEntities;
-using Business.Constants;
-using Core.Utilities.Business;
-=======
->>>>>>> Stashed changes
 
 namespace Business.Concrete
 {
@@ -31,8 +22,7 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-<<<<<<< Updated upstream
-=======
+
         public IResult Add(User user)
         {
             IResult result = BusinessRules.Run(UserExists(user.Email));
@@ -46,8 +36,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Successful);
         }
 
-      
->>>>>>> Stashed changes
+
         public IResult Delete(User user)
         {
             var claims = GetClaims(user);
@@ -67,10 +56,11 @@ namespace Business.Concrete
             return new ErrorResult(Messages.SuperUserCannotBeDeleted);
         }
 
-        public IDataResult<List<User>> GetAll()
+        public IDataResult<List<UserDetailsDto>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(),"başarılı");
+            return new SuccessDataResult<List<UserDetailsDto>>(_userDal.GetAllUser(), Messages.Successful);
         }
+
 
         public IDataResult<UserEvolved> GetById(string id)
         {
@@ -82,9 +72,6 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
         }
 
-<<<<<<< Updated upstream
-        public List<OperationClaim> GetClaims(User user)
-=======
         public IDataResult<UserClaimDto> GetClaimAndUserDetails(string mail)
         {
             return new SuccessDataResult<UserClaimDto>(_userDal.GetClaimAndUserDetails(mail), Messages.Successful);
@@ -101,7 +88,6 @@ namespace Business.Concrete
         }
 
         public IDataResult<UserDto> Update(UserDto user)
->>>>>>> Stashed changes
         {
             var currentUser = GetByMail(user.Email);
             currentUser.Data.Email = user.Email;
@@ -116,13 +102,10 @@ namespace Business.Concrete
             }
             throw new FormatException(Messages.AnErrorOccurredDuringTheUpdateProcess);
         }
-<<<<<<< Updated upstream
-        private IResult UserExists(string mail)
-=======
+     
 
 
         private IResult UserExists(string email)
->>>>>>> Stashed changes
         {
             var result = GetByMail(email);
             if (result.Data != null)

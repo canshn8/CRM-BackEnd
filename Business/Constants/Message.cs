@@ -7,7 +7,6 @@ namespace Business.Constants
     public static class Messages
     {
 
-<<<<<<< Updated upstream
         public static string ProductAdded = "Ürün eklendi";
         public static string CompanyAdded = "Şirket eklendi";
         public static string CompanyDistAdded = "Distribütör Şirketi eklendi";
@@ -39,7 +38,6 @@ namespace Business.Constants
 
         public static string CategoryLimitExceded = "Kategori limiti aşıldığı için yeni ürün eklenemiyor";
         public static string AuthorizationDenied = "Yetkiniz yok.";
-=======
         public static string AddingSuccessful = "Ekleme İşlemi Başarılı";
         public static string DeletionSuccessful = "Silme İşlemi Başarılı";
         public static string UpdateSuccessful = "Güncelleme İşlemi Başarılı";
@@ -60,6 +58,5 @@ namespace Business.Constants
         internal static string AccessTokenCreated = "Erişim tokeni oluşturuldu.";
         internal static string CustomerRegistered = "Müşteri başarıyla kayıt oldu";
         internal static string AuthorizationDenied = "Erişim reddedildi";
->>>>>>> Stashed changes
     }
 }
