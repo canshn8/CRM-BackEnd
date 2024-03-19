@@ -3,6 +3,7 @@ using Core.DataAccess.Databases.MongoDB;
 using Core.Entities.Concrete.DBEntities;
 using DataAccess.Abstract;
 using DataAccess.Concrete.DataBases.MongoDB.Collections;
+using Entities.Concrete.Simples;
 using Entities.DTOs;
 using MongoDB.Driver;
 using System;
@@ -14,8 +15,7 @@ namespace DataAccess.Concrete.DataBases.MongoDB
 {
     public class MongoDB_UserDal : MongoDB_RepositoryBase<User, MongoDB_Context<User, MongoDB_UserCollection>>, IUserDal
     {
-<<<<<<< Updated upstream
-=======
+
         private readonly IMapper _mapper;
 
         public MongoDB_UserDal(IMapper mapper)
@@ -33,10 +33,12 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                 operationClaims.collection.DeleteMany(c => c.UserId == user.Id);
 
             }
+
         }
 
         public List<UserDetailsDto> GetAllUser()
         {
+
             List<User> users = new List<User>();
             using (var userContext = new MongoDB_Context<User, MongoDB_UserCollection>())
             {
@@ -144,7 +146,21 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return myList;
         }
 
->>>>>>> Stashed changes
+
+            throw new NotImplementedException();
+        }
+
+        public List<UserEvolved> GetAllWithClaims()
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserClaimDto GetClaimAndUserDetails(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public List<OperationClaim> GetClaims(User user)
         {
             List<OperationClaim> _operationClaims = new List<OperationClaim>();
@@ -177,11 +193,8 @@ namespace DataAccess.Concrete.DataBases.MongoDB
 
         }
 
-<<<<<<< Updated upstream
-        public UserDto GetUserById(string id)
-        {
-            throw new NotImplementedException();
-=======
+
+      
 
         public UserEvolved GetWithClaims(string userId)
         {
@@ -203,7 +216,12 @@ namespace DataAccess.Concrete.DataBases.MongoDB
 
             };
             return userEvolved;
->>>>>>> Stashed changes
+
+        }
+
+        public UserEvolved GetWithClaims(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

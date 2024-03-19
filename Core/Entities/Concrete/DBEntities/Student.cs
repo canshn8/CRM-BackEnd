@@ -12,6 +12,7 @@ namespace Core.Entities.Concrete.DBEntities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -20,6 +21,7 @@ namespace Core.Entities.Concrete.DBEntities
         public decimal Collection{ get; set; }
         public string Report{ get; set; }
         
+
 
         public bool Status { get; set; }
     }

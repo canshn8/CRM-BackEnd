@@ -15,6 +15,7 @@ namespace Entities.DTOs
         public decimal Collection{ get; set; }
         public string Report { get; set; }
 
+
         public bool Status { get; set; }
     }
 }

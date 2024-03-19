@@ -1,15 +1,13 @@
 ﻿using Business.Abstract;
-using Core.Entities.Concrete;
 using Core.Utilities.Results;
-using Core.DataAccess.Databases;
-using DataAccess.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using DataAccess.Abstract;
+using Core.Entities.Concrete.DBEntities;
 using Business.Constants;
 using Core.Utilities.Business;
-using Entities.Concrete;
-using Core.Entities.Concrete.DBEntities;
+using Entities.DTOs;
+using Entities.Concrete.Simples;
 
 namespace Business.Concrete
 {
@@ -22,21 +20,19 @@ namespace Business.Concrete
            _studentDal = studentDal;
         }
 
-        public List<OperationClaim> GetClaims(Student student)
+        public IDataResult<List<OperationClaim>> GetClaims(Student student)
         {
-            return _studentDal.GetClaims(student);
+            return new SuccessDataResult<List<OperationClaim>>(_studentDal.GetClaims(student), Messages.Successful);
         }
 
-        //public IResult Add(Student student)
-        //{
-        //    _studentDal.Add(student);
-        //}
-        public IDataResult<Student> GetById(int studentId)
+
+        public IResult Add(Student student)
         {
-<<<<<<< Updated upstream
-            throw new NotImplementedException();
-=======
+
             IResult result = BusinessRules.Run(StudentExists(student.Id));
+
+            IResult result = BusinessRules.Run(StudentExists(student.Email));
+
 
             if (result != null)
             {
@@ -45,27 +41,40 @@ namespace Business.Concrete
             _studentDal.Add(student);
 
             return new SuccessResult(Messages.Successful);
->>>>>>> Stashed changes
+
         }
+        public IDataResult<List<StudentDetailsDto>> GetAll()
+        {
+            return new SuccessDataResult<List<StudentDetailsDto>>(_studentDal.GetAllStudent(), Messages.Successful);
+
+        }
+
+        public IDataResult<StudentEvolved> GetById(string id)
+        {
+            return new SuccessDataResult<StudentEvolved>(_studentDal.GetWithClaims(id), Messages.Successful);
+        }
+
+        public IDataResult<Student> GetByMail(string email)
+        {
+            return new SuccessDataResult<Student>(_studentDal.Get(u => u.Email == email));
+        }
+
 
         public IResult Delete(Student student)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Student>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
 
-        public Student GetByMail(string email)
+        private IResult StudentExists(string email)
         {
-            throw new NotImplementedException();
-        }
+            var result = GetByMail(email);
+            if (result.Data != null)
+            {
+                return new ErrorResult(Messages.StudentAlreadyExists);
+            }
 
-        public IResult Add(Student student)
-        {
-            throw new NotImplementedException();
+            return new SuccessResult(Messages.Successful);
         }
     }
 }

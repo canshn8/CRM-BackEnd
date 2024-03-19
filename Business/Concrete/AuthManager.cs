@@ -34,7 +34,7 @@ namespace Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = true,
             };
-            _userService.UserAdd(user);
+            _userService.Add(user);
             return new SuccessDataResult<User>(user, "Kayıt Oldu");
         }
 
@@ -67,10 +67,9 @@ namespace Business.Concrete
         public IDataResult<UserAccessToken> CreateAccessToken(User user)
         {
             var claims = _userService.GetClaims(user);
-            var accessToken = _tokenHelper.CreateToken(user, claims);
+            var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             return new SuccessDataResult<UserAccessToken>(accessToken, "Token Oluşturuldu");
         }
-
     }
 }
 
