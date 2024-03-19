@@ -28,7 +28,11 @@ namespace Business.Concrete
 
         public IResult Add(Student student)
         {
+
+            IResult result = BusinessRules.Run(StudentExists(student.Id));
+
             IResult result = BusinessRules.Run(StudentExists(student.Email));
+
 
             if (result != null)
             {
@@ -37,10 +41,12 @@ namespace Business.Concrete
             _studentDal.Add(student);
 
             return new SuccessResult(Messages.Successful);
+
         }
         public IDataResult<List<StudentDetailsDto>> GetAll()
         {
             return new SuccessDataResult<List<StudentDetailsDto>>(_studentDal.GetAllStudent(), Messages.Successful);
+
         }
 
         public IDataResult<StudentEvolved> GetById(string id)

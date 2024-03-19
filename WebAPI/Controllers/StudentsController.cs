@@ -1,5 +1,9 @@
+
+using AutoMapper;
 using Business.Abstract;
 using Castle.Core.Resource;
+using Core.Entities.Concrete.DBEntities;
+
 using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,24 +16,27 @@ namespace WebAPI.Controllers
     {
 
         private readonly IStudentService _studentService;
+        private readonly IMapper _mapper;
 
-        public StudentsController(IStudentService studentService)
+        public StudentsController(IStudentService studentService, IMapper mapper)
         {
             _studentService = studentService;
+            _mapper = mapper;
+
         }
 
 
         [HttpPost("Add")]
-        public IActionResult Add(StudentDto customerDto)
+
+        public IActionResult Add(StudentDto studentDto)
         {
-            var student = _mapper.Map<Student>(customerDto);
-            var result = _studentService.Add(student);
+            var map = _mapper.Map<Student>(studentDto);
+            var result = _studentService.Add(map);
             if (result.Success)
             {
-               return Ok(result);
-            }
-            return BadRequest(result);
-        }
+                return Ok(result);
+
+
 
 
 
