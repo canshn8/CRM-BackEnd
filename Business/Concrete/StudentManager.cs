@@ -33,7 +33,19 @@ namespace Business.Concrete
         //}
         public IDataResult<Student> GetById(int studentId)
         {
+<<<<<<< Updated upstream
             throw new NotImplementedException();
+=======
+            IResult result = BusinessRules.Run(StudentExists(student.Id));
+
+            if (result != null)
+            {
+                return result;
+            }
+            _studentDal.Add(student);
+
+            return new SuccessResult(Messages.Successful);
+>>>>>>> Stashed changes
         }
 
         public IResult Delete(Student student)
