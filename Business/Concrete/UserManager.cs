@@ -10,6 +10,16 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 
+using System.Text;
+
+using DataAccess.Abstract;
+using Core.Entities.Concrete.DBEntities;
+using Business.Constants;
+using Core.Utilities.Business;
+using Entities.DTOs;
+using Entities.Concrete.Simples;
+
+
 namespace Business.Concrete
 {
     public class UserManager : IUserService
@@ -35,7 +45,6 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.Successful);
         }
-
 
         public IResult Delete(User user)
         {
@@ -73,19 +82,26 @@ namespace Business.Concrete
         }
 
         public IDataResult<UserClaimDto> GetClaimAndUserDetails(string mail)
+
         {
             return new SuccessDataResult<UserClaimDto>(_userDal.GetClaimAndUserDetails(mail), Messages.Successful);
         }
+
+      
+
+        public IDataResult<UserDto> GetDetailsById(string id)
+        {
+            return new SuccessDataResult<UserDto>(_userDal.GetUserById(id), Messages.Successful);
+        }
+
+       
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user), Messages.Successful);
         }
 
-        public IDataResult<UserDto> GetDetailsById(string id)
-        {
-            return new SuccessDataResult<UserDto>(_userDal.GetUserById(id), Messages.Successful);
-        }
+       
 
         public IDataResult<UserDto> Update(UserDto user)
         {
@@ -102,10 +118,9 @@ namespace Business.Concrete
             }
             throw new FormatException(Messages.AnErrorOccurredDuringTheUpdateProcess);
         }
-     
 
 
-        private IResult UserExists(string email)
+        private IResult UserExists(string mail)
         {
             var result = GetByMail(email);
             if (result.Data != null)

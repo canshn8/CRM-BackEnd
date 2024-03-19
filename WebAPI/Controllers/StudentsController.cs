@@ -1,4 +1,4 @@
-﻿using Business.Abstract;
+using Business.Abstract;
 using Castle.Core.Resource;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +10,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class StudentsController : ControllerBase
     {
+
         private readonly IStudentService _studentService;
 
         public StudentsController(IStudentService studentService)
@@ -18,17 +19,17 @@ namespace WebAPI.Controllers
         }
 
 
-        //[HttpPost("Add")]
-        //public IActionResult Add(StudentDto customerDto)
-        //{
-            //var student = _mapper.Map<Student>(customerDto);
-            //var result = _studentService.Add(student);
-            //if (result.Success)
-            //{
-            //    return Ok(result);
-            //}
-            //return BadRequest(result);
-        //}
+        [HttpPost("Add")]
+        public IActionResult Add(StudentDto customerDto)
+        {
+            var student = _mapper.Map<Student>(customerDto);
+            var result = _studentService.Add(student);
+            if (result.Success)
+            {
+               return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
 
 
@@ -43,5 +44,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result); 
         }
+
     }
 }

@@ -17,6 +17,5 @@ namespace DataAccess.Abstract
         UserEvolved GetWithClaims(string userId);
         void DeleteClaims(User user);
         UserClaimDto GetClaimAndUserDetails(string email);
-
     }
 }

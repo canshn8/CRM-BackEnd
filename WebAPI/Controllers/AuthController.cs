@@ -44,12 +44,16 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(userToLogin.Message);
             }
+
+
             var result = _authService.CreateAccessToken(userToLogin.Data);
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Data);
             }
-            return BadRequest(result);
+
+            return BadRequest(result.Message);
+
         }
     }
 }
