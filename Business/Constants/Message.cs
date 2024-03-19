@@ -60,6 +60,5 @@ namespace Business.Constants
         public static string SuccessfulLogin = "Giriş Başarılı";
         public static string AccessTokenCreated = "Erişim tokeni oluşturuldu.";
         public static string CustomerRegistered = "Müşteri başarıyla kayıt oldu";
-        public static string AuthorizationDenied = "Erişim reddedildi";
     }
 }

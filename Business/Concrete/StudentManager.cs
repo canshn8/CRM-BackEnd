@@ -31,7 +31,6 @@ namespace Business.Concrete
 
             IResult result = BusinessRules.Run(StudentExists(student.Id));
 
-            IResult result = BusinessRules.Run(StudentExists(student.Email));
 
 
             if (result != null)

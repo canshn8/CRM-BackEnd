@@ -147,19 +147,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
         }
 
 
-            throw new NotImplementedException();
-        }
-
-        public List<UserEvolved> GetAllWithClaims()
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserClaimDto GetClaimAndUserDetails(string email)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public List<OperationClaim> GetClaims(User user)
         {
@@ -219,9 +206,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
 
         }
 
-        public UserEvolved GetWithClaims(string userId)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

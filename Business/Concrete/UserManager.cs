@@ -122,7 +122,7 @@ namespace Business.Concrete
 
         private IResult UserExists(string mail)
         {
-            var result = GetByMail(email);
+            var result = GetByMail(mail);
             if (result.Data != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
