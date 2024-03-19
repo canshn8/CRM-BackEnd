@@ -45,6 +45,7 @@ namespace WebAPI.Controllers
                 return BadRequest(userToLogin.Message);
             }
 
+
             var result = _authService.CreateAccessToken(userToLogin.Data);
             if (result.Success)
             {
@@ -52,6 +53,7 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(result.Message);
+
         }
     }
 }

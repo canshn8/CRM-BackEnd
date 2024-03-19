@@ -1,8 +1,15 @@
 ﻿using Business.Abstract;
-using Core.Entities.Concrete;
+using Business.Constants;
+using Core.Entities.Concrete.DBEntities;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
+using Core.Utilities.Security.Hashing;
+using DataAccess.Abstract;
+using Entities.Concrete.Simples;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+
 using System.Text;
 
 using DataAccess.Abstract;
@@ -12,16 +19,19 @@ using Core.Utilities.Business;
 using Entities.DTOs;
 using Entities.Concrete.Simples;
 
+
 namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-            private readonly IUserDal _userDal;
 
-            public UserManager(IUserDal userDal)
-            {
-                _userDal = userDal;
-            }
+        private readonly IUserDal _userDal;
+
+        public UserManager(IUserDal userDal)
+        {
+            _userDal = userDal;
+        }
+
 
         public IResult Add(User user)
         {
@@ -35,9 +45,24 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.Successful);
         }
+
         public IResult Delete(User user)
         {
-            throw new NotImplementedException();
+            var claims = GetClaims(user);
+            var claim = claims.Data.Find(c => c.Name == "suser");
+            if (claim == null)
+            {
+                var result = _userDal.Delete(user.Id);
+                if (result.DeletedCount > 0)
+                {
+                    _userDal.DeleteClaims(user);
+
+                    return new SuccessResult(Messages.Successful);
+                }
+                throw new FormatException(Messages.AnErrorOccurredDuringTheDeleteProcess);
+
+            }
+            return new ErrorResult(Messages.SuperUserCannotBeDeleted);
         }
 
         public IDataResult<List<UserDetailsDto>> GetAll()
@@ -45,61 +70,65 @@ namespace Business.Concrete
             return new SuccessDataResult<List<UserDetailsDto>>(_userDal.GetAllUser(), Messages.Successful);
         }
 
-        public IDataResult<User> GetById(string userId)
+
+        public IDataResult<UserEvolved> GetById(string id)
         {
-            return new SuccessDataResult<User>(_userDal.Get(i=>i.Id==userId));
+            return new SuccessDataResult<UserEvolved>(_userDal.GetWithClaims(id), Messages.Successful);
         }
 
         public IDataResult<User> GetByMail(string email)
         {
-            return new SuccessDataResult<User>(_userDal.Get(i=>i.Email==email));
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
         }
 
         public IDataResult<UserClaimDto> GetClaimAndUserDetails(string mail)
+
         {
             return new SuccessDataResult<UserClaimDto>(_userDal.GetClaimAndUserDetails(mail), Messages.Successful);
         }
 
-        public IDataResult<List<OperationClaim>> GetClaims(User user)
-        {
-            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user), "tamamdır");
-        }
+      
 
         public IDataResult<UserDto> GetDetailsById(string id)
         {
             return new SuccessDataResult<UserDto>(_userDal.GetUserById(id), Messages.Successful);
         }
 
+       
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user), Messages.Successful);
+        }
+
+       
+
         public IDataResult<UserDto> Update(UserDto user)
         {
-            throw new NotImplementedException();
-        }
+            var currentUser = GetByMail(user.Email);
+            currentUser.Data.Email = user.Email;
+            currentUser.Data.FirstName = user.FirstName;
+            currentUser.Data.LastName = user.LastName;
+            currentUser.Data.Status = user.Status;
 
-        public IResult UserAdd(User user)
-        {
-            var result = BusinessRules.Run(UserExists(user.Email));
-            if (result != null)
+            var result = _userDal.Update(currentUser.Data);
+            if (result.MatchedCount > 0)
             {
-                return result;
+                return new SuccessDataResult<UserDto>(user, Messages.UserUpdated);
             }
-            _userDal.Add(user);
-            return new SuccessResult();
+            throw new FormatException(Messages.AnErrorOccurredDuringTheUpdateProcess);
         }
 
-
-        //IDataResult<UserEvolved> IUserService.GetById(string id)
-        //{
-        //    throw new NotImplementedException();
-        //}HATAAAALIII
 
         private IResult UserExists(string mail)
         {
-            var result=GetByMail(mail);
-            if (result.Data!=null)
+            var result = GetByMail(email);
+            if (result.Data != null)
             {
-                return new ErrorResult();
+                return new ErrorResult(Messages.UserAlreadyExists);
             }
-            return new SuccessResult();
+
+            return new SuccessResult(Messages.Successful);
         }
     }
 }
