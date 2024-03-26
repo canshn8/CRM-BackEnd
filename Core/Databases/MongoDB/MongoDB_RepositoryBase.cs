@@ -33,9 +33,7 @@ namespace Core.DataAccess.Databases.MongoDB
         }
         public ReplaceOneResult Update(TEntity entity)
         {
-
             return _collection.ReplaceOne(e => e.Id == entity.Id, entity);
-
         }
         public TEntity Get(Expression<Func<TEntity, bool>> filter = null)
         {

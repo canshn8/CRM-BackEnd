@@ -38,6 +38,17 @@ namespace WebAPI.Controllers
         }
 
 
+        [HttpPost("Update")]
+        public IActionResult Update(StudentDto studentDto)
+        {
+            var result = _studentService.Update(studentDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
 
         [HttpPost("Add")]
         public IActionResult Add(StudentDto studentDto)

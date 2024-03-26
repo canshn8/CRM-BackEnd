@@ -53,7 +53,9 @@ namespace Business.Constants
         public static string AnErrorOccurredDuringTheUpdateProcess = "Güncelleme işleminde hata oluştu";
         public static string AnErrorOccurredDuringTheDeleteProcess = "Silme işleminde hata oluştu";
         public static string SuperUserCannotBeDeleted = "Super User silinemez";
+
         public static string UserUpdated = "Kullanıcı Güncellendi";
+        public static string StudentUpdated = "Öğrenci Güncellendi";
         public static string ThisOperationClaimAlreadyExists = "Bu rol zaten mevcut";
         public static string UserRegistered = "Kullanıcı kayıtı başarılı.";
         public static string MissingOrIncorrectEntry = "Eksik Ya Da Hatalı Giriş";
