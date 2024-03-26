@@ -12,6 +12,7 @@ namespace Entities.Profiles.AutoMapperProfiles
         public EntitiesAutoMapperProfile()
         {
             CreateMap<StudentDto, Student>();
+            CreateMap<UserDto, User>();
         }
     }
 }

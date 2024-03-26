@@ -28,19 +28,13 @@ namespace Business.Concrete
 
         public IResult Add(Student student)
         {
-
             IResult result = BusinessRules.Run(StudentExists(student.Id));
-
-
-
             if (result != null)
             {
                 return result;
             }
             _studentDal.Add(student);
-
             return new SuccessResult(Messages.Successful);
-
         }
         public IDataResult<List<StudentDetailsDto>> GetAll()
         {
@@ -59,9 +53,16 @@ namespace Business.Concrete
         }
 
 
-        public IResult Delete(Student student)
+        public IResult Delete(string id)
         {
-            throw new NotImplementedException();
+            var data = GetById(id).Data;
+            var result = _studentDal.Delete(data.Id);
+            if(result.DeletedCount>0)
+            {
+                return new SuccessResult(Messages.Successful);
+            }
+            return new ErrorResult(Messages.AnErrorOccurredDuringTheDeleteProcess);
+
         }
 
 

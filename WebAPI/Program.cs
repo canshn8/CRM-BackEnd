@@ -38,11 +38,15 @@ namespace YourNamespace
                     webBuilder.ConfigureServices((hostContext, services) =>
                     {
                         services.AddHttpContextAccessor();
-                        services.AddCors();
+                        services.AddCors(options =>
+                        {
+                            options.AddPolicy("AllowOrigin",
+                                builder => builder.WithOrigins("http://localhost:3000"));
+                        });
                         services.AddControllers();
                         services.AddSwaggerGen(c =>
                         {
-                            c.SwaggerDoc("v1", new OpenApiInfo { Title = "CRN WEB API", Version = "v1" });
+                            c.SwaggerDoc("v1", new OpenApiInfo { Title = "CRM WEB API", Version = "v1" });
                         });
                         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
                         var tokenOptions = hostContext.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
@@ -76,13 +80,15 @@ namespace YourNamespace
                         {
                             app.UseDeveloperExceptionPage();
                             app.UseSwagger();
-                            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRN v1.0"));
+                            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM v1.0"));
                         }
 
                         var corsSettings = app.ApplicationServices.GetRequiredService<IConfiguration>()
                             .GetSection("CorsSettings").Get<CorsSettings>();
                         app.ConfigureCustomExceptionMiddleware();
                         app.UseCors(builder => builder.WithOrigins(Environment.GetEnvironmentVariable("ORIGINS").Split(',')).AllowAnyHeader());
+                        //app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+
 
                         app.UseRouting();
                         app.UseStaticFiles();

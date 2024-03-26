@@ -26,8 +26,20 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpPost("Add")]
+        [HttpGet("Delete")]
+        public IActionResult Delete(string id)
+        {
+            var result = _studentService.Delete(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
+
+
+        [HttpPost("Add")]
         public IActionResult Add(StudentDto studentDto)
         {
             var map = _mapper.Map<Student>(studentDto);
@@ -35,11 +47,8 @@ namespace WebAPI.Controllers
             if (result.Success)
             {
                 return Ok(result);
-
-
             }
             return BadRequest(result);
-
         }
 
         [HttpGet("Getall")]
