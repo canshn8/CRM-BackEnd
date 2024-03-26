@@ -11,7 +11,7 @@ namespace Business.Abstract
         IDataResult<List<OperationClaim>> GetClaims(Student student);
         IResult Add(Student student);
         IDataResult<StudentEvolved> GetById(string studentId);
-        IResult Delete(Student student);
+        IResult Delete(string id);
         IDataResult<List<StudentDetailsDto>> GetAll();
         IDataResult<Student> GetByMail(string email);
 
