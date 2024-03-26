@@ -12,8 +12,9 @@ namespace Business.Abstract
         IResult Add(Student student);
         IDataResult<StudentEvolved> GetById(string studentId);
         IResult Delete(string id);
-        IDataResult<List<StudentDetailsDto>> GetAll();
         IDataResult<Student> GetByMail(string email);
+        IDataResult<StudentDto> Update(StudentDto student);
+        IDataResult<List<StudentDetailsDto>> GetAll();
 
     }
 }

@@ -166,6 +166,19 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return _currentStudentOperationClaims;
         }
 
+        public StudentDto GetUserById(string id)
+        {
+            using (var studentContext = new MongoDB_Context<Student, MongoDB_StudentCollection>())
+            {
+                studentContext.GetMongoDBCollection();
+                var students = studentContext.collection.Find<Student>(document => true).ToList();
+                var tempt = students.Find(u => u.Id == id);
+                var real = _mapper.Map<StudentDto>(tempt);
+                return real;
+            }
+        }
+
+
         public StudentEvolved GetWithClaims(string studentId)
         {
             Student student = new Student();
@@ -184,11 +197,17 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 Collection = student.Collection,
+                Report = student.Report,
                 OperationClaims = GetClaims(student),
                 Status = student.Status
 
             };
             return studentEvolved;
+        }
+
+        public Student Update(StudentDto studentDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }
