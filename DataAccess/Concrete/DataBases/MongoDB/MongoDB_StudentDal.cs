@@ -99,6 +99,24 @@ namespace DataAccess.Concrete.DataBases.MongoDB
 
         }
 
+        public Student GetByMail(string email)
+        {
+            using (var studentContext = new MongoDB_Context<Student, MongoDB_StudentCollection>())
+            {
+                studentContext.GetMongoDBCollection();
+
+                var students = studentContext.collection.Find<Student>(document => document.Email == email).ToList();
+
+                if (students.Count == 0)
+                {
+                    return null;
+                }
+
+                var real = _mapper.Map<Student>(students[0]);
+                return real;
+            }
+        }
+
         public StudentClaimDto GetClaimAndStudentDetails(string Email)
         {
             StudentClaimDto myList = new StudentClaimDto();
@@ -205,9 +223,32 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return studentEvolved;
         }
 
-        public Student Update(StudentDto studentDto)
+        public StudentDto UpdateUser(string email)
         {
-            throw new NotImplementedException();
+            using (var studentContext = new MongoDB_Context<Student, MongoDB_StudentCollection>())
+            {
+                studentContext.GetMongoDBCollection();
+                var student = studentContext.collection.Find<Student>(document => document.Email == email).FirstOrDefault();
+
+                if (student != null)
+                {
+                    return new StudentDto
+                    {
+                        FirstName = student.FirstName,
+                        LastName = student.LastName,
+                        Email = student.Email,
+                        Report = student.Report,
+                        PaymentHistory = student.PaymentHistory,
+                        PaymentMethod = student.PaymentMethod,
+                        Collection = student.Collection,
+                        Status = student.Status,
+                    };
+                }
+
+                return null;
+            }
         }
+
+      
     }
 }
