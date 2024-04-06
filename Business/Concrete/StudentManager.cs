@@ -49,7 +49,7 @@ namespace Business.Concrete
 
         public IDataResult<Student> GetByMail(string email)
         {
-            return new SuccessDataResult<Student>(_studentDal.Get(u => u.Email == email));
+            return new SuccessDataResult<Student>(_studentDal.GetByMail(email));
         }
 
 
@@ -65,61 +65,17 @@ namespace Business.Concrete
 
         }
 
-        //public IDataResult<StudentDto> Update(StudentDto student)
-        //{
-        //    Console.WriteLine(student);
-        //    var selectedUser = GetByMail(student.Email);
-        //    selectedUser.Data.FirstName = student.FirstName;
-        //    selectedUser.Data.LastName = student.LastName;
-        //    selectedUser.Data.Email = student.Email;
-        //    selectedUser.Data.Report = student.Report;
-        //    selectedUser.Data.Collection = student.Collection;
-        //    selectedUser.Data.PaymentHistory = student.PaymentHistory;
-        //    selectedUser.Data.PaymentMethod = student.PaymentMethod;
-        //    selectedUser.Data.Status = student.Status;
-
-        //    var result = _studentDal.Update(selectedUser.Data);
-        //    if (result.MatchedCount > 0)
-        //    {
-        //        return new SuccessDataResult<StudentDto>(student, Messages.StudentUpdated);
-        //    }
-        //    throw new FormatException(Messages.AnErrorOccurredDuringTheUpdateProcess);
-
-        //}
-        public IDataResult<StudentDto> Update(StudentDto student)
+        public IResult Update(Student updatedStudent)
         {
-            Console.WriteLine(student);
-            var selectedUser = GetByMail(student.Email);
-
-            if (selectedUser != null && selectedUser.Success)
-            {
-                selectedUser.Data.FirstName = student.FirstName;
-                selectedUser.Data.LastName = student.LastName;
-                selectedUser.Data.Email = student.Email;
-                selectedUser.Data.Report = student.Report;
-                selectedUser.Data.Collection = student.Collection;
-                selectedUser.Data.PaymentHistory = student.PaymentHistory;
-                selectedUser.Data.PaymentMethod = student.PaymentMethod;
-                selectedUser.Data.Status = student.Status;
-
-                var result = _studentDal.Update(selectedUser.Data);
-                if (result.MatchedCount > 0)
-                {
-                    return new SuccessDataResult<StudentDto>(student, Messages.StudentUpdated);
-                }
-                throw new FormatException(Messages.AnErrorOccurredDuringTheUpdateProcess);
-            }
-            else
-            {
-                throw new ArgumentNullException("selectedUser", "Selected user is null or operation failed.");
-            }
+            _studentDal.Update(updatedStudent);
+            return new SuccessResult(Messages.StudentUpdated);
         }
 
 
-        private IResult StudentExists(string email)
+        private IResult StudentExists(string id)
         {
-            var result = GetByMail(email);
-            if (result.Data != null)
+            var result = _studentDal.GetUserById(id);
+            if (result != null)
             {
                 return new ErrorResult(Messages.StudentAlreadyExists);
             }
@@ -127,6 +83,5 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Successful);
         }
 
-      
     }
 }

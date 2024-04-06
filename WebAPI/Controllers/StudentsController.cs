@@ -39,9 +39,9 @@ namespace WebAPI.Controllers
 
 
         [HttpPost("Update")]
-        public IActionResult Update(StudentDto studentDto)
+        public IActionResult Update(Student student)
         {
-            var result = _studentService.Update(studentDto);
+            var result = _studentService.Update(student);
             if (result.Success)
             {
                 return Ok(result);
@@ -71,6 +71,17 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result); 
+        }
+
+        [HttpGet("GetByMail")]
+        public IActionResult GetByMail(string email)
+        {
+            var result = _studentService.GetByMail(email);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
 
     }

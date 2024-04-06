@@ -15,7 +15,8 @@ namespace DataAccess.Abstract
         List<StudentEvolved> GetAllWithClaims();
         StudentEvolved GetWithClaims(string studentId);
         StudentDto GetUserById(string id);
-        Student Update(StudentDto studentDto);
+        //StudentDto UpdateUser(Student student);
+        Student GetByMail(string email);
         void DeleteClaims(Student student);
         StudentClaimDto GetClaimAndStudentDetails(string email);
 
