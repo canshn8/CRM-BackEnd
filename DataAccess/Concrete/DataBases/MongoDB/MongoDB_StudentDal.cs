@@ -32,7 +32,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             {
                 operationClaims.GetMongoDBCollection();
                 operationClaims.collection.DeleteMany(c => c.StudentId == student.Id);
-
             }
         }
 
@@ -65,6 +64,11 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                 return studentDtos;
             }
         }
+
+      
+       
+
+       
 
         public List<StudentEvolved> GetAllWithClaims()
         {
@@ -99,6 +103,9 @@ namespace DataAccess.Concrete.DataBases.MongoDB
 
         }
 
+       
+
+
         public Student GetByMail(string email)
         {
             using (var studentContext = new MongoDB_Context<Student, MongoDB_StudentCollection>())
@@ -116,6 +123,8 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                 return real;
             }
         }
+
+      
 
         public StudentClaimDto GetClaimAndStudentDetails(string Email)
         {
@@ -153,6 +162,8 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return myList;
         }
 
+        
+
         public List<OperationClaim> GetClaims(Student student)
         {
             List<OperationClaim> _operationClaims = new List<OperationClaim>();
@@ -184,6 +195,10 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return _currentStudentOperationClaims;
         }
 
+
+
+       
+
         public StudentDto GetUserById(string id)
         {
             using (var studentContext = new MongoDB_Context<Student, MongoDB_StudentCollection>())
@@ -196,6 +211,7 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             }
         }
 
+     
 
         public StudentEvolved GetWithClaims(string studentId)
         {

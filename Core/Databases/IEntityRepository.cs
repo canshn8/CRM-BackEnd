@@ -14,6 +14,8 @@ namespace Core.DataAccess.Databases
         List<T> GetAll(Expression<Func<T, bool>> filter = null);
         T Get(Expression<Func<T, bool>> filter = null);
         void Add(T entity);
+        void AddContact(T entity);
+        void AddStarting(T entity);
         DeleteResult Delete(string id);
         ReplaceOneResult Update(T entity);
         DeleteResult DeleteMany(Expression<Func<T, bool>> filter = null);

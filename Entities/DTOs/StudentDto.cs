@@ -17,7 +17,6 @@ namespace Entities.DTOs
         public DateTime PaymentHistory{ get; set; }
         public decimal Collection{ get; set; }
         public string Report { get; set; }
-
         public bool Status { get; set; }
 
 
