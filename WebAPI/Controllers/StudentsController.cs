@@ -62,6 +62,32 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+
+        [HttpPost("AddContact")]
+        public IActionResult StudentContact(StudentContactDto studentContactDto)
+        {
+            var map = _mapper.Map<StudentContact>(studentContactDto);
+            var result = _studentService.AddContact(map);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        
+        [HttpPost("StudentStarting")]
+        public IActionResult AddStarting(StudentStartingDto studentStartingDto)
+        {
+            var map = _mapper.Map<StudentStarting>(studentStartingDto);
+            var result = _studentService.AddStarting(map);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
         [HttpGet("Getall")]
         public IActionResult GetAll()
         {
@@ -72,6 +98,31 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result); 
         }
+
+
+        [HttpGet("GetAllContact")]
+        public IActionResult GetAllContact()
+        {
+            var result = _studentService.GetAllContact();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+        [HttpGet("GetAllStarting")]
+        public IActionResult GetAllStarting()
+        {
+            var result = _studentService.GetAllStarting();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
 
         [HttpGet("GetByMail")]
         public IActionResult GetByMail(string email)

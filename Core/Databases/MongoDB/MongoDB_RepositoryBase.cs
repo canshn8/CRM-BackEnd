@@ -23,6 +23,14 @@ namespace Core.DataAccess.Databases.MongoDB
         {
             _collection.InsertOne(entity);
         }
+        public void AddContact(TEntity entity)
+        {
+            _collection.InsertOne(entity);
+        }
+        public void AddStarting(TEntity entity)
+        {
+            _collection.InsertOne(entity);
+        }
         public DeleteResult Delete(string id)
         {
             return _collection.DeleteOne(e => e.Id == id);
@@ -75,6 +83,7 @@ namespace Core.DataAccess.Databases.MongoDB
         {
             GC.SuppressFinalize(this);
         }
+
     }
 }
 

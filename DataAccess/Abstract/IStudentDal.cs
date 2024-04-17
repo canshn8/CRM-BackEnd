@@ -10,12 +10,12 @@ namespace DataAccess.Abstract
 {
     public interface IStudentDal : IEntityRepository<Student>
     {
+       
         List<OperationClaim> GetClaims(Student student);
         List<StudentDetailsDto> GetAllStudent();
         List<StudentEvolved> GetAllWithClaims();
         StudentEvolved GetWithClaims(string studentId);
         StudentDto GetUserById(string id);
-        //StudentDto UpdateUser(Student student);
         Student GetByMail(string email);
         void DeleteClaims(Student student);
         StudentClaimDto GetClaimAndStudentDetails(string email);
