@@ -192,19 +192,32 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return _currentStudentOperationClaims;
         }
 
-        public StudentDetailsDto GetStudentById(string studentId)
+        public StudentDetailsDto GetStudentById(string id)
         {
-            var student = _collection.Find(r => r.Id == studentId).FirstOrDefault();
-            if (student == null)
-                return null;
-
-            return new StudentDetailsDto
+            using (var studentContext = new MongoDB_Context<Student, MongoDB_StudentCollection>())
             {
-                Id = student.Id,
-                Email = student.Email,
-                FirstName = student.FirstName,
-                LastName= student.LastName,
-            };
+
+                var student = studentContext.collection.Find(r => r.Id == id).FirstOrDefault();
+                if (student == null)
+                    return null;
+
+                return new StudentDetailsDto
+                {
+                    Id = student.Id,
+                    Email = student.Email,
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    Collection = student.Collection,
+                    DataSource = student.DataSource,
+                    Status = student.Status,
+                    Report = student.Report,
+                    IsReg = student.IsReg,
+                    No = student.No,
+                    InterestedEducation = student.InterestedEducation,
+                    PaymentHistory = student.PaymentHistory,
+                    PaymentMethod = student.PaymentMethod,
+                };
+            }
         }
 
         public StudentDto GetUserById(string id)
