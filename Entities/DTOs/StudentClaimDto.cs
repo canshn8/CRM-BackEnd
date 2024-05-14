@@ -2,7 +2,6 @@
 using Core.Entities.Concrete.DBEntities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Entities.DTOs
 {
@@ -17,6 +16,10 @@ namespace Entities.DTOs
         public decimal Collection { get; set; }
         public string Report { get; set; }
         public bool Status { get; set; }
+        public string No { get; set; }
+        public string InterestedEducation { get; set; }
+        public string DataSource { get; set; }
+        public string IsReg { get; set; }
         public List<OperationClaim> OperationClaims { get; set; }
     }
 }

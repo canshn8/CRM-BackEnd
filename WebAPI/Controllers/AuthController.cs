@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Business.Abstract;
+﻿using Business.Abstract;
 using Entities.DTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -26,7 +24,7 @@ namespace WebAPI.Controllers
                 return BadRequest("bu kullanıcı zaten kayıtlı");
             }
             userForRegisterDto.Status = true;
-            var register=_authService.Register(userForRegisterDto);
+            var register = _authService.Register(userForRegisterDto);
             var check = _authService.CreateAccessToken(register.Data);
             if (!check.Success)
             {
@@ -40,7 +38,6 @@ namespace WebAPI.Controllers
         public ActionResult Login(UserForLoginDto userForLoginDto)
         {
             var userToLogin = _authService.Login(userForLoginDto);
-            var x = userForLoginDto;
             if (!userToLogin.Success)
             {
                 return BadRequest(userToLogin.Message);

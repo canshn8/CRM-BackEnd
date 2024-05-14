@@ -1,6 +1,4 @@
 ﻿using Core.Entities.Abstract;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace Entities.DTOs
 {

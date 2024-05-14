@@ -1,6 +1,4 @@
-﻿using System;
-using Core.DataAccess.Databases.MongoDB;
-using Core.Entities;
+﻿using Core.DataAccess.Databases.MongoDB;
 using Core.Entities.Abstract;
 using Core.Utilities.IoC;
 using DataAccess.Concrete.DataBases.MongoDB.Collections;

@@ -1,11 +1,9 @@
 ﻿using Business.Abstract;
-using Core.Entities.Concrete;
+using Core.Entities.Concrete.DBEntities;
+using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.JWT;
-using Core.Utilities.Results;
 using Entities.DTOs;
-using Core.Entities.Concrete.DBEntities;
-using Business.Constants;
 
 
 namespace Business.Concrete

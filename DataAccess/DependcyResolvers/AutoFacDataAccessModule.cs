@@ -4,10 +4,6 @@ using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
 using DataAccess.Abstract;
 using DataAccess.Concrete.DataBases.MongoDB;
-using DataAccess.Concrete.DataBases.MongoDB.Utilities.ConnectionResolvers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.DependencyResolvers
 {

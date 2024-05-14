@@ -1,43 +1,28 @@
 ﻿using Business.Abstract;
-using Core.Utilities.Results;
-using System;
-using System.Collections.Generic;
-using DataAccess.Abstract;
-using Core.Entities.Concrete.DBEntities;
 using Business.Constants;
+using Core.Entities.Concrete.DBEntities;
 using Core.Utilities.Business;
-using Entities.DTOs;
+using Core.Utilities.Results;
+using DataAccess.Abstract;
 using Entities.Concrete.Simples;
+using Entities.DTOs;
+using System.Collections.Generic;
 
 namespace Business.Concrete
 {
     public class StudentManager : IStudentService
     {
         IStudentDal _studentDal;
-        IStudentContactDal _studentContactDal;
-        IStudentStartingDal _studentStartingDal;
+
 
         public StudentManager(IStudentDal studentDal)
         {
-           _studentDal = studentDal;
+            _studentDal = studentDal;
         }
-
         public IDataResult<List<OperationClaim>> GetClaims(Student student)
         {
             return new SuccessDataResult<List<OperationClaim>>(_studentDal.GetClaims(student), Messages.Successful);
         }
-        
-        public IDataResult<List<OperationClaim>> GetClaimsContact(StudentContact studentContact)
-        {
-            return new SuccessDataResult<List<OperationClaim>>(_studentContactDal.GetClaimsContact(studentContact), Messages.Successful);
-        }
-        
-        public IDataResult<List<OperationClaim>> GetClaimsStarting(StudentStarting studentStarting)
-        {
-            return new SuccessDataResult<List<OperationClaim>>(_studentStartingDal.GetClaimsStarting(studentStarting), Messages.Successful);
-        }
-
-
         public IResult Add(Student student)
         {
             IResult result = BusinessRules.Run(StudentExists(student.Id));
@@ -48,44 +33,15 @@ namespace Business.Concrete
             _studentDal.Add(student);
             return new SuccessResult(Messages.Successful);
         }
-       
-        public IResult AddContact(StudentContact studentContact)
-        {
-            IResult result = BusinessRules.Run(StudentExistsContact(studentContact.Id));
-            if (result != null)
-            {
-                return result;
-            }
-            _studentContactDal.AddContact(studentContact);
-            return new SuccessResult(Messages.Successful);
-        }
-
-        public IResult AddStarting(StudentStarting studentStarting)
-        {
-            IResult result = BusinessRules.Run(StudentExistsStarting(studentStarting.Id));
-            if (result != null)
-            {
-                return result;
-            }
-            _studentStartingDal.AddStarting(studentStarting);
-            return new SuccessResult(Messages.Successful);
-        }
         public IDataResult<List<StudentDetailsDto>> GetAll()
         {
             return new SuccessDataResult<List<StudentDetailsDto>>(_studentDal.GetAllStudent(), Messages.Successful);
 
         }
-        public IDataResult<List<StudentContactDto>> GetAllContact()
+        public IDataResult<StudentDetailsDto> GetDetailsById(string id)
         {
-            return new SuccessDataResult<List<StudentContactDto>>(_studentContactDal.GetAllStudentContact(), Messages.Successful);
-
+            return new SuccessDataResult<StudentDetailsDto>(_studentDal.GetStudentById(id), Messages.Successful);
         }
-        public IDataResult<List<StudentStartingDto>> GetAllStarting()
-        {
-            return new SuccessDataResult<List<StudentStartingDto>>(_studentStartingDal.GetAllStudentStarting(), Messages.Successful);
-
-        }
-
         public IDataResult<StudentEvolved> GetById(string id)
         {
             return new SuccessDataResult<StudentEvolved>(_studentDal.GetWithClaims(id), Messages.Successful);
@@ -95,27 +51,22 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Student>(_studentDal.GetByMail(email));
         }
-
-
         public IResult Delete(string id)
         {
             var data = GetById(id).Data;
             var result = _studentDal.Delete(data.Id);
-            if(result.DeletedCount>0)
+            if (result.DeletedCount > 0)
             {
                 return new SuccessResult(Messages.Successful);
             }
             return new ErrorResult(Messages.AnErrorOccurredDuringTheDeleteProcess);
 
         }
-
         public IResult Update(Student updatedStudent)
         {
             _studentDal.Update(updatedStudent);
             return new SuccessResult(Messages.StudentUpdated);
         }
-
-
         private IResult StudentExists(string id)
         {
             var result = _studentDal.GetUserById(id);
@@ -126,27 +77,5 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.Successful);
         }
-
-        private IResult StudentExistsContact(string id)
-        {
-            var result = _studentContactDal.GetUserByIdContact(id);
-            if (result != null)
-            {
-                return new ErrorResult(Messages.StudentAlreadyExists);
-            }
-
-            return new SuccessResult(Messages.Successful);
-        }
-        private IResult StudentExistsStarting(string id)
-        {
-            var result = _studentStartingDal.GetUserByIdStarting(id);
-            if (result != null)
-            {
-                return new ErrorResult(Messages.StudentAlreadyExists);
-            }
-
-            return new SuccessResult(Messages.Successful);
-        }
-
     }
 }

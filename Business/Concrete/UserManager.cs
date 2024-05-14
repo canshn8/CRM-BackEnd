@@ -3,21 +3,11 @@ using Business.Constants;
 using Core.Entities.Concrete.DBEntities;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
-using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
 using Entities.Concrete.Simples;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
-
-using System.Text;
-
-using DataAccess.Abstract;
-using Core.Entities.Concrete.DBEntities;
-using Business.Constants;
-using Core.Utilities.Business;
-using Entities.DTOs;
-using Entities.Concrete.Simples;
 
 
 namespace Business.Concrete
@@ -87,21 +77,21 @@ namespace Business.Concrete
             return new SuccessDataResult<UserClaimDto>(_userDal.GetClaimAndUserDetails(mail), Messages.Successful);
         }
 
-      
+
 
         public IDataResult<UserDto> GetDetailsById(string id)
         {
             return new SuccessDataResult<UserDto>(_userDal.GetUserById(id), Messages.Successful);
         }
 
-       
+
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user), Messages.Successful);
         }
 
-       
+
 
         public IDataResult<UserDto> Update(UserDto user)
         {

@@ -6,15 +6,13 @@ using DataAccess.Concrete.DataBases.MongoDB.Collections;
 using Entities.Concrete.Simples;
 using Entities.DTOs;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DataAccess.Concrete.DataBases.MongoDB
 {
-        public class MongoDB_StudentContactDal : MongoDB_RepositoryBase<StudentContact, MongoDB_Context<StudentContact, MongoDB_StudentContactCollection>>, IStudentContactDal
-        { 
+    public class MongoDB_StudentContactDal : MongoDB_RepositoryBase<StudentContact, MongoDB_Context<StudentContact, MongoDB_StudentContactCollection>>, IStudentContactDal
+    {
 
         private readonly IMapper _mapper;
 
@@ -24,11 +22,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
         }
 
         public List<StudentContactDto> GetAllStudentContact()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<StudentContactDto> GetAllStudentStarting()
         {
             List<StudentContact> students = new List<StudentContact>();
             using (var studentContext = new MongoDB_Context<StudentContact, MongoDB_StudentContactCollection>())
@@ -42,7 +35,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                     {
                         studentDtos.Add(new StudentContactDto
                         {
-                            Id = student.Id,
                             No = student.No,
                             Name = student.Name,
                             InterestedEducation = student.InterestedEducation,
@@ -57,7 +49,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                 return studentDtos;
             }
         }
-
 
         public List<StudentContactEvolved> GetAllWithClaimsContact()
         {

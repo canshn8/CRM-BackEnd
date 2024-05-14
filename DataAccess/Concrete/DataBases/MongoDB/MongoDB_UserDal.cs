@@ -6,10 +6,8 @@ using DataAccess.Concrete.DataBases.MongoDB.Collections;
 using Entities.Concrete.Simples;
 using Entities.DTOs;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DataAccess.Concrete.DataBases.MongoDB
 {
@@ -128,7 +126,7 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             }
             foreach (var item in _userOperationClaims)
             {
-                var user = _users.Find(x => x.Email == email); 
+                var user = _users.Find(x => x.Email == email);
                 if (user != null)
                 {
                     if (item.UserId == user.Id)
@@ -181,7 +179,7 @@ namespace DataAccess.Concrete.DataBases.MongoDB
         }
 
 
-      
+
 
         public UserEvolved GetWithClaims(string userId)
         {
@@ -206,6 +204,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
 
         }
 
-       
+
     }
 }

@@ -1,11 +1,8 @@
 
 using AutoMapper;
 using Business.Abstract;
-using Castle.Core.Resource;
 using Core.Entities.Concrete.DBEntities;
-
 using Entities.DTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -16,11 +13,15 @@ namespace WebAPI.Controllers
     {
 
         private readonly IStudentService _studentService;
+        private readonly IStudentContactService _studentContactService;
+        private readonly IStudentStartingService _studentStartingService;
         private readonly IMapper _mapper;
 
-        public StudentsController(IStudentService studentService, IMapper mapper)
+        public StudentsController(IStudentService studentService, IMapper mapper, IStudentContactService studentContactService, IStudentStartingService studentStartingService)
         {
             _studentService = studentService;
+            _studentContactService = studentContactService;
+            _studentStartingService = studentStartingService;
             _mapper = mapper;
 
         }
@@ -67,19 +68,19 @@ namespace WebAPI.Controllers
         public IActionResult StudentContact(StudentContactDto studentContactDto)
         {
             var map = _mapper.Map<StudentContact>(studentContactDto);
-            var result = _studentService.AddContact(map);
+            var result = _studentContactService.AddContact(map);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        
-        [HttpPost("StudentStarting")]
+
+        [HttpPost("AddStarting")]
         public IActionResult AddStarting(StudentStartingDto studentStartingDto)
         {
             var map = _mapper.Map<StudentStarting>(studentStartingDto);
-            var result = _studentService.AddStarting(map);
+            var result = _studentStartingService.AddStarting(map);
             if (result.Success)
             {
                 return Ok(result);
@@ -96,14 +97,14 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest(result); 
+            return BadRequest(result);
         }
 
 
         [HttpGet("GetAllContact")]
         public IActionResult GetAllContact()
         {
-            var result = _studentService.GetAllContact();
+            var result = _studentContactService.GetAllContact();
             if (result.Success)
             {
                 return Ok(result);
@@ -115,7 +116,7 @@ namespace WebAPI.Controllers
         [HttpGet("GetAllStarting")]
         public IActionResult GetAllStarting()
         {
-            var result = _studentService.GetAllStarting();
+            var result = _studentStartingService.GetAllStarting();
             if (result.Success)
             {
                 return Ok(result);
@@ -133,6 +134,17 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
+        }
+
+        [HttpGet("GetDetails")]
+        public IActionResult GetRestaurantDetailsById(string id)
+        {
+            var result = _studentService.GetDetailsById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
         }
 
     }

@@ -1,10 +1,6 @@
-﻿using System;
-using Castle.DynamicProxy;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
+using System;
 
 namespace Core.Utilities.Interceptos
 {

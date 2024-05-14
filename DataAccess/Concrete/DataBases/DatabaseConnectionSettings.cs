@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DataAccess.Concrete.DataBases
+﻿namespace DataAccess.Concrete.DataBases
 {
     public class DatabaseConnectionSettings
     {

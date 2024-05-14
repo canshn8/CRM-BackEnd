@@ -1,11 +1,8 @@
 ﻿using Core.Utilities.IoC;
 using Core.Utilities.Results;
-using Core.Utilities.Security.Hashing;
-using Entities.Concrete;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace DataAccess.Concrete.DataBases.MongoDB.Utilities.ConnectionResolvers

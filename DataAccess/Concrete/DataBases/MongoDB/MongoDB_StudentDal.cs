@@ -7,10 +7,8 @@ using Entities.Concrete.Simples;
 using Entities.DTOs;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DataAccess.Concrete.DataBases.MongoDB
 {
@@ -54,6 +52,10 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                             LastName = student.LastName,
                             Email = student.Email,
                             Report = student.Report,
+                            No = student.No,
+                            InterestedEducation = student.InterestedEducation,
+                            DataSource = student.DataSource,
+                            IsReg = student.IsReg,
                             PaymentHistory = student.PaymentHistory,
                             PaymentMethod = student.PaymentMethod,
                             Collection = student.Collection,
@@ -65,10 +67,7 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             }
         }
 
-      
-       
 
-       
 
         public List<StudentEvolved> GetAllWithClaims()
         {
@@ -89,6 +88,10 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                     PaymentMethod = student.PaymentMethod,
                     PaymentHistory = student.PaymentHistory,
                     Collection = student.Collection,
+                    No = student.No,
+                    InterestedEducation = student.InterestedEducation,
+                    DataSource = student.DataSource,
+                    IsReg = student.IsReg,
                     FirstName = student.FirstName,
                     LastName = student.LastName,
                     OperationClaims = GetClaims(student),
@@ -102,8 +105,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return _studentEvolveds;
 
         }
-
-       
 
 
         public Student GetByMail(string email)
@@ -123,8 +124,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                 return real;
             }
         }
-
-      
 
         public StudentClaimDto GetClaimAndStudentDetails(string Email)
         {
@@ -162,8 +161,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return myList;
         }
 
-        
-
         public List<OperationClaim> GetClaims(Student student)
         {
             List<OperationClaim> _operationClaims = new List<OperationClaim>();
@@ -195,9 +192,20 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return _currentStudentOperationClaims;
         }
 
+        public StudentDetailsDto GetStudentById(string studentId)
+        {
+            var student = _collection.Find(r => r.Id == studentId).FirstOrDefault();
+            if (student == null)
+                return null;
 
-
-       
+            return new StudentDetailsDto
+            {
+                Id = student.Id,
+                Email = student.Email,
+                FirstName = student.FirstName,
+                LastName= student.LastName,
+            };
+        }
 
         public StudentDto GetUserById(string id)
         {
@@ -211,9 +219,9 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             }
         }
 
-     
 
-        public StudentEvolved GetWithClaims(string studentId)
+
+            public StudentEvolved GetWithClaims(string studentId)
         {
             Student student = new Student();
             using (var students = new MongoDB_Context<Student, MongoDB_StudentCollection>())
@@ -229,6 +237,10 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                 PaymentHistory = student.PaymentHistory,
                 PaymentMethod = student.PaymentMethod,
                 FirstName = student.FirstName,
+                InterestedEducation = student.InterestedEducation,
+                No = student.No,
+                DataSource = student.DataSource,
+                IsReg = student.IsReg,
                 LastName = student.LastName,
                 Collection = student.Collection,
                 Report = student.Report,
@@ -258,6 +270,10 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                         PaymentMethod = student.PaymentMethod,
                         Collection = student.Collection,
                         Status = student.Status,
+                        InterestedEducation = student.InterestedEducation,
+                        No = student.No,
+                        DataSource = student.DataSource,
+                        IsReg = student.IsReg,
                     };
                 }
 
@@ -265,6 +281,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             }
         }
 
-      
+
     }
 }

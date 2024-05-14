@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Business.Abstract;
-using Castle.Core.Resource;
 using Core.Entities.Concrete.DBEntities;
 using Entities.DTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -21,7 +19,7 @@ namespace WebAPI.Controllers
             _mapper = mapper;
 
         }
-       
+
 
 
         [HttpGet("Delete")]
@@ -41,7 +39,7 @@ namespace WebAPI.Controllers
         [HttpGet("Getall")]
         public IActionResult GetAll()
         {
-            var result=_userService.GetAll();
+            var result = _userService.GetAll();
             if (result.Success)
             {
                 return Ok(result);

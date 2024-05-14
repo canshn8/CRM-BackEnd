@@ -1,10 +1,8 @@
 ﻿using Core.DataAccess.Databases;
 using Core.Entities.Concrete.DBEntities;
-using System;
-using System.Collections.Generic;
-using Entities.DTOs;
-using System.Text;
 using Entities.Concrete.Simples;
+using Entities.DTOs;
+using System.Collections.Generic;
 
 namespace DataAccess.Abstract
 {

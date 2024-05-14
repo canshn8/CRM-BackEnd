@@ -1,9 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Core.Entities.Concrete.DBEntities;
 using MongoDB.Bson;
-using System;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
-using System.Text;
-using Core.Entities.Concrete.DBEntities;
 
 namespace Entities.Concrete.Simples
 {
@@ -12,7 +10,7 @@ namespace Entities.Concrete.Simples
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public int No { get; set; }
+        public decimal No { get; set; }
         public string Name { get; set; }
         public string Staff { get; set; }
         public string DataSource { get; set; }
