@@ -1,9 +1,7 @@
 ﻿using Core.Entities.Concrete.DBEntities;
-using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
-using System;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Entities.Concrete.Simples
 {

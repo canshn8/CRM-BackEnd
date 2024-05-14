@@ -1,14 +1,12 @@
 ﻿using Core.Entities.Concrete.DBEntities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Entities.DTOs
 {
     public class StudentClaimContactDto
     {
-        public string Id { get; set; }
-        public int No { get; set; }
+        public string StudentId { get; set; }
+        public decimal No { get; set; }
         public string Name { get; set; }
         public string Staff { get; set; }
         public string DataSource { get; set; }

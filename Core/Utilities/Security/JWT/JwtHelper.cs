@@ -1,5 +1,4 @@
-﻿using Core.Entities.Concrete;
-using Core.Entities.Concrete.DBEntities;
+﻿using Core.Entities.Concrete.DBEntities;
 using Core.Extensions;
 using Core.Utilities.Security.Encryption;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +8,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 
 namespace Core.Utilities.Security.JWT
 {
@@ -33,10 +31,11 @@ namespace Core.Utilities.Security.JWT
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
 
-            return new UserAccessToken{
+            return new UserAccessToken
+            {
                 Expiration = _accessTokenExpiration,
                 Token = token,
-                UserId=user.Id,
+                UserId = user.Id,
             };
 
         }

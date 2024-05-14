@@ -18,6 +18,10 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<StudentManager>().As<IStudentService>();
 
+            builder.RegisterType<StudentContactManager>().As<IStudentContactService>();
+
+            builder.RegisterType<StudentStartingManager>().As<IStudentStartingService>();
+
 
             builder.RegisterType<UserManager>().As<IUserService>();
 

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Core.DataAccess.Databases;
 using Core.DataAccess.Databases.MongoDB;
 using Core.Entities.Concrete.DBEntities;
 using DataAccess.Abstract;
@@ -7,11 +6,8 @@ using DataAccess.Concrete.DataBases.MongoDB.Collections;
 using Entities.Concrete.Simples;
 using Entities.DTOs;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace DataAccess.Concrete.DataBases.MongoDB
 {
@@ -38,14 +34,14 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                     {
                         studentDtos.Add(new StudentStartingDto
                         {
-                            Id = student.Id,
                             Name = student.Name,
                             DataSource = student.DataSource,
                             No = student.No,
+                            Tc = student.Tc,
                             Staff = student.Staff,
                             NumberBills = student.NumberBills,
                             AdvancePay = student.AdvancePay,
-                            CareerCouncelor = student.CareerCouncelor,
+                            CareerCounselor = student.CareerCounselor,
                             CollectionAmount = student.CollectionAmount,
                             EducationHistory = student.EducationHistory,
                             InterestedEducation = student.InterestedEducation,
@@ -76,14 +72,14 @@ namespace DataAccess.Concrete.DataBases.MongoDB
 
                 StudentStartingEvolved studentStartingEvolved = new StudentStartingEvolved
                 {
-                    Id = student.Id,
                     Name = student.Name,
                     DataSource = student.DataSource,
                     No = student.No,
+                    Tc = student.Tc,
                     Staff = student.Staff,
                     NumberBills = student.NumberBills,
                     AdvancePay = student.AdvancePay,
-                    CareerCouncelor = student.CareerCouncelor,
+                    CareerCounselor = student.CareerCounselor,
                     CollectionAmount = student.CollectionAmount,
                     EducationHistory = student.EducationHistory,
                     InterestedEducation = student.InterestedEducation,
@@ -286,7 +282,7 @@ namespace DataAccess.Concrete.DataBases.MongoDB
                 Staff = student.Staff,
                 NumberBills = student.NumberBills,
                 AdvancePay = student.AdvancePay,
-                CareerCouncelor = student.CareerCouncelor,
+                CareerCounselor = student.CareerCounselor,
                 CollectionAmount = student.CollectionAmount,
                 EducationHistory = student.EducationHistory,
                 InterestedEducation = student.InterestedEducation,
@@ -299,6 +295,6 @@ namespace DataAccess.Concrete.DataBases.MongoDB
             return studentEvolved;
         }
 
-      
+
     }
 }
